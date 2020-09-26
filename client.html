@@ -22,6 +22,9 @@
       const screen = document.getElementById("screen");
       const context = screen.getContext("2d");
 
+      // Selecionar o jogador
+      const currentPlayerId = window.prompt("Digite o jogador:", "player1");
+
       // CAMADA DE LOGICA, DADOS = JOGO
 
       const game = {
@@ -33,6 +36,38 @@
           player2: { x: 9, y: 9 },
         },
       };
+
+      document.addEventListener("keydown", handleKeyDown);
+
+      // CAMADA DE INPUT - ACAO DO JOGADOR
+
+      function handleKeyDown(event) {
+        const player = game.players[currentPlayerId];
+
+        if (event.key === "ArrowUp" && player.y - 1 >= 0) {
+          console.log("Up");
+          player.y = player.y - 1;
+          return;
+        }
+
+        if (event.key === "ArrowRight" && player.x + 1 < screen.width) {
+          console.log("Right");
+          player.x = player.x + 1;
+          return;
+        }
+
+        if (event.key === "ArrowDown" && player.y + 1 < screen.height) {
+          console.log("Down");
+          player.y = player.y + 1;
+          return;
+        }
+
+        if (event.key === "ArrowLeft" && player.x > 0) {
+          console.log("Left");
+          player.x = player.x - 1;
+          return;
+        }
+      }
 
       renderScreen();
 
