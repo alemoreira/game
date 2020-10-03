@@ -90,7 +90,7 @@
       // Factory Pattern - isolando a camada de INPUT
       function createKeyboardListener() {
         // Observer Pattern - createKeyboardListener passa a ser um Subject
-        observers: []; // Aqui vai ter o game (em runtime e não mais estaticamente acoplado)
+        const observers = []; // Aqui vai ter o game (em runtime e não mais estaticamente acoplado)
 
         function subscribe(observerFunction) {
           observers.push(observerFunction);
@@ -103,7 +103,7 @@
             observerFunction(command);
           }
         }
-        document.addEventLitener("keydown", handleKeyDown);
+        document.addEventListener("keydown", handleKeyDown);
 
         function handleKeyDown(event) {
           const command = {
