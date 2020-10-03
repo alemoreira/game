@@ -111,6 +111,7 @@
         document.addEventListener("keydown", handleKeyDown);
 
         function handleKeyDown(event) {
+          // Este o objeto preparado para transportar o estado (dados) esperados pelos Observers para que eles possam realizar suas ações. Neste caso o jogo poder mover o jogador.
           const command = {
             playerId: currentPlayerId,
             keyPressed: event.key,
