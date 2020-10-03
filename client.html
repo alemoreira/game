@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="pt">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Meu Primeiro Jogo Multiplayer</title>
-    <style>
-      #screen {
-        border: 10px solid #ccc;
-        image-rendering: pixelated;
-        image-rendering: crisp-edges;
-        image-rendering: -moz-crisp-edges;
-        width: 400px;
-        height: 400px;
-      }
-    </style>
-  </head>
-  <body>
-    <canvas id="screen" width="10" height="10"></canvas>
 
-    <script>
-      const screen = document.getElementById("screen");
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Meu Primeiro Jogo Multiplayer</title>
+	<style>
+		#screen {
+			border: 10px solid #ccc;
+			image-rendering: pixelated;
+			image-rendering: crisp-edges;
+			image-rendering: -moz-crisp-edges;
+			width: 400px;
+			height: 400px;
+		}
+	</style>
+</head>
+
+<body>
+	<canvas id="screen" width="10" height="10"></canvas>
+
+	<script>
+		const screen = document.getElementById("screen");
       const context = screen.getContext("2d");
 
       // CAMADA DE LOGICA, DADOS = JOGO
@@ -83,17 +85,21 @@
         Object.keys(game.state.players)[0]
       );
 
-      document.addEventListener("keydown", handleKeyDown);
+      const keyboardListener = createKeyboardListener();
 
       // CAMADA DE INPUT - ACAO DO JOGADOR
+      // Factory Pattern - isolando a camada de INPUT
+      function createKeyboardListener() {
+        document.addEventLitener("keydown", handleKeyDown);
 
-      function handleKeyDown(event) {
-        const command = {
-          playerId: "player1",
-          keyPressed: event.key,
-        };
+        function handleKeyDown(event) {
+          const command = {
+            playerId: "player1",
+            keyPressed: event.key,
+          };
 
-        game.movePlayer(command);
+          game.movePlayer(command);
+        }
       }
 
       renderScreen();
@@ -122,6 +128,7 @@
         // chama a funcao de desenhar a tela recursivamente
         requestAnimationFrame(renderScreen);
       }
-    </script>
-  </body>
+	</script>
+</body>
+
 </html>
