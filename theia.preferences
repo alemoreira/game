@@ -1,0 +1,13 @@
+# settings.json
+{
+  "workbench.iconTheme": "theia-file-icons",
+  "editor.formatOnSave": true,
+  "editor.autoSave": "off",
+  "editor.fontFamily": "'JetBrains Mono', 'Fira Code', Menlo, Monaco, 'Courier New', monospace",
+  "workbench.colorTheme": "dark",
+  "terminal.integrated.fontFamily": "'JetBrains Mono', 'Fira Code', Menlo, Monaco, 'Courier New', monospace",
+  # Folding 
+  "[html]": {
+    "editor.foldingStrategy": "indentation"
+  }
+}
