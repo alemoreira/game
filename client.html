@@ -115,6 +115,10 @@
           notifyAll(command);
           // o objetivo com o Observer Pattern foi remover o acomplamento com game (camada de jogo)
         }
+
+        return {
+          subscribe,
+        };
       }
 
       renderScreen();
