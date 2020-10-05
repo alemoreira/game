@@ -44,30 +44,34 @@
             ArrowUp(player) {
               console.log(`Moving ${player} Up`);
 
-              if (player.y - 1 >= 0) {
-                player.y = player.y - 1;
-              }
+              //   if (player.y - 1 >= 0) {
+              //     player.y = player.y - 1;
+              //   }
+              player.y = Math.max(plaher.y - 1, 0);
             },
             ArrowRight(player) {
               console.log(`Moving ${player} Right`);
 
-              if (player.x + 1 < screen.width) {
-                player.x = player.x + 1;
-              }
+              //   if (player.x + 1 < screen.width) {
+              //     player.x = player.x + 1;
+              //   }
+              player.x = Math.min(player.x + 1, screen.width);
             },
             ArrowDown(player) {
               console.log(`Moving ${player} Down`);
 
-              if (player.y + 1 < screen.height) {
-                player.y = player.y + 1;
-              }
+              //   if (player.y + 1 < screen.height) {
+              //     player.y = player.y + 1;
+              //   }
+              player.y = Math.min(player.y + 1, screen.width);
             },
             ArrowLeft(player) {
               console.log(`Moving ${player} Left`);
 
-              if (player.x > 0) {
-                player.x = player.x - 1;
-              }
+              //   if (player.x > 0) {
+              //     player.x = player.x - 1;
+              //   }
+              player.x = Math.max(player.x - 1, 0);
             },
           };
 
