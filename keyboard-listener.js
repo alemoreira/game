@@ -1,6 +1,7 @@
 // CAMADA DE INPUT - ACAO DO JOGADOR
 // Factory Pattern - isolando a camada de INPUT
-function createKeyboardListener() {
+
+export default function createKeyboardListener() {
   // Observer Pattern - createKeyboardListener passa a ser um Subject
   const observers = []; // Aqui vai ter o game (em runtime e não mais estaticamente acoplado)
 
