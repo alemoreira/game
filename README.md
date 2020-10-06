@@ -10,3 +10,7 @@ https://www.youtube.com/playlist?list=PLMdYygf53DP5SVQQrkKCVWDS0TwYLVitL
 # Injeção de Dependência
 
 FIXME - link para o vídeo de Injeção de Dependêcia do Deschamps
+
+# Algorítimo de Colisão
+
+QuadTree
