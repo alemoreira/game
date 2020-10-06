@@ -67,11 +67,11 @@
         }
 
         function movePlayer(command) {
-          console.log(`Moving ${command.playerId} with ${command.keyPressed}`);
+          //   console.log(`Moving ${command.playerId} with ${command.keyPressed}`);
 
           const acceptedMoves = {
             ArrowUp(player) {
-              console.log(`Moving ${player} Up`);
+              //   console.log(`Moving ${player} Up`);
 
               //   if (player.y - 1 >= 0) {
               //     player.y = player.y - 1;
@@ -79,7 +79,7 @@
               player.y = Math.max(player.y - 1, 0);
             },
             ArrowRight(player) {
-              console.log(`Moving ${player} Right`);
+              //   console.log(`Moving ${player} Right`);
 
               //   if (player.x + 1 < screen.width) {
               //     player.x = player.x + 1;
@@ -87,7 +87,7 @@
               player.x = Math.min(player.x + 1, screen.width - 1);
             },
             ArrowDown(player) {
-              console.log(`Moving ${player} Down`);
+              //   console.log(`Moving ${player} Down`);
 
               //   if (player.y + 1 < screen.height) {
               //     player.y = player.y + 1;
@@ -95,7 +95,7 @@
               player.y = Math.min(player.y + 1, screen.width - 1);
             },
             ArrowLeft(player) {
-              console.log(`Moving ${player} Left`);
+              //   console.log(`Moving ${player} Left`);
 
               //   if (player.x > 0) {
               //     player.x = player.x - 1;
@@ -105,12 +105,32 @@
           };
 
           const keyPressed = command.keyPressed;
-          const player = state.players[command.playerId];
+          const playerId = command.playerId;
+          const player = state.players[playerId];
           const moveFunction = acceptedMoves[keyPressed];
 
           if (player && moveFunction) {
             moveFunction(player);
+            checkForFruitCollision(playerId); // Assim a cada movimento, é analisado colisão apenas com o jogador que se movimentou.
           }
+        }
+
+        function checkForFruitCollision(playerId) {
+          //   for (const playerId in state.players) {
+          const player = state.players[playerId];
+
+          for (const fruitId in state.fruits) {
+            const fruit = state.fruits[fruitId];
+            console.log(`Checking ${playerId} and ${fruitId}`);
+
+            if (player.x === fruit.x && player.y === fruit.y) {
+              console.log(`COLLISION between ${playerId} and ${fruitId}`);
+
+              // removeFruit({ fruitId });
+              removeFruit({ fruitId: fruitId });
+            }
+          }
+          //   }
         }
 
         // Retornar o objeto Jogo.
@@ -131,8 +151,14 @@
       /*
         Registrar os observers - algo para ser feito pela aplicação em runtime.
         Cole a linha abaixo no console
-        keyboardListener.subscribe(game.movePlayer)
       */
+      keyboardListener.subscribe(game.movePlayer);
+
+      game.addPlayer({ playerId: "player1", playerX: 0, playerY: 0 });
+      game.addPlayer({ playerId: "player2", playerX: 7, playerY: 0 });
+      game.addPlayer({ playerId: "player3", playerX: 9, playerY: 0 });
+      game.addFruit({ fruitId: "fruit1", fruitX: 3, fruitY: 3 });
+      game.addFruit({ fruitId: "fruit2", fruitX: 3, fruitY: 5 });
 
       // CAMADA DE INPUT - ACAO DO JOGADOR
       // Factory Pattern - isolando a camada de INPUT
@@ -145,7 +171,7 @@
         }
 
         function notifyAll(command) {
-          console.log(`Notifying ${observers.length} observers`);
+          //   console.log(`Notifying ${observers.length} observers`);
 
           for (const observerFunction of observers) {
             observerFunction(command);
