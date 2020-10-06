@@ -47,7 +47,7 @@
               //   if (player.y - 1 >= 0) {
               //     player.y = player.y - 1;
               //   }
-              player.y = Math.max(plaher.y - 1, 0);
+              player.y = Math.max(player.y - 1, 0);
             },
             ArrowRight(player) {
               console.log(`Moving ${player} Right`);
@@ -55,7 +55,7 @@
               //   if (player.x + 1 < screen.width) {
               //     player.x = player.x + 1;
               //   }
-              player.x = Math.min(player.x + 1, screen.width);
+              player.x = Math.min(player.x + 1, screen.width - 1);
             },
             ArrowDown(player) {
               console.log(`Moving ${player} Down`);
@@ -63,7 +63,7 @@
               //   if (player.y + 1 < screen.height) {
               //     player.y = player.y + 1;
               //   }
-              player.y = Math.min(player.y + 1, screen.width);
+              player.y = Math.min(player.y + 1, screen.width - 1);
             },
             ArrowLeft(player) {
               console.log(`Moving ${player} Left`);
