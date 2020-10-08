@@ -1,0 +1,28 @@
+// CAMADA DE APRESENTACAO
+export default function renderScreen(screen, game, requestAnimationFrame) {
+  const context = screen.getContext("2d");
+
+  // Limpa a tela ou inicializa a tela
+  context.fillStyle = "white";
+  context.clearRect(0, 0, 10, 10);
+
+  // Desenha todos os jogadores com o estado atual
+  for (const playerId in game.state.players) {
+    const player = game.state.players[playerId];
+    context.fillStyle = "black";
+    context.fillRect(player.x, player.y, 1, 1);
+  }
+
+  // Desenha todas as frutas com o estado atual
+  for (const fruitId in game.state.fruits) {
+    const fruit = game.state.fruits[fruitId];
+    context.fillStyle = "green";
+    context.fillRect(fruit.x, fruit.y, 1, 1);
+  }
+
+  // chama a funcao de desenhar a tela recursivamente
+  // funcao anonima para ser o callback a ser chamado, agora contendo os 3 parâmetros
+  requestAnimationFrame(() => {
+    renderScreen(screen, game, requestAnimationFrame);
+  });
+}
