@@ -17,6 +17,8 @@ QuadTree
 
 # Links
 
-▸ Vídeo sobre módulos ESM: https://www.youtube.com/watch?v=jA5XX...
+▸ Vídeo sobre módulos ESM: https://www.youtube.com/watch?v=jA5XX
+
 ▸ Vídeo do Diego da Rocketseat: https://youtu.be/0YRyi1BDWyw
-▸ Explicação sobre Backend e Frontend: https://www.youtube.com/watch?v=_v6Fx...
+
+▸ Explicação sobre Backend e Frontend: https://www.youtube.com/watch?v=_v6Fx
