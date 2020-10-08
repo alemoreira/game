@@ -1,3 +1,4 @@
+// CAMADA DE LOGICA, DADOS = JOGO
 // Factory Pattern - isolando a camada do Jogo
 export default function createGame() {
   const state = {
