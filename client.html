@@ -25,7 +25,7 @@
       import renderScreen from "./render-screen.js";
 
       const game = createGame();
-      const keyboardListener = createKeyboardListener();
+      const keyboardListener = createKeyboardListener(document);
       /*
         Registrar os observers - algo para ser feito pela aplicação em runtime.
         Cole a linha abaixo no console
