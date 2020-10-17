@@ -3,26 +3,37 @@
 
 export default function createKeyboardListener(document) {
   // Observer Pattern - createKeyboardListener passa a ser um Subject
-  const observers = []; // Aqui vai ter o game (em runtime e não mais estaticamente acoplado)
+  // Aqui vai ter o game (em runtime e não mais estaticamente acoplado)
+  const state = {
+    observers: [],
+    playerId: null,
+  };
+
+  function registerPlayerId(playerId) {
+    state.playerId = playerId;
+  }
 
   function subscribe(observerFunction) {
-    observers.push(observerFunction);
+    state.observers.push(observerFunction);
   }
 
   function notifyAll(command) {
     //   console.log(`Notifying ${observers.length} observers`);
 
-    for (const observerFunction of observers) {
+    for (const observerFunction of state.observers) {
       observerFunction(command);
     }
   }
   document.addEventListener("keydown", handleKeyDown);
 
   function handleKeyDown(event) {
+    const keyPressed = event.key;
+
     // Este o objeto preparado para transportar o estado (dados) esperados pelos Observers para que eles possam realizar suas ações. Neste caso o jogo poder mover o jogador.
     const command = {
-      playerId: "player1",
-      keyPressed: event.key,
+      type: "move-player",
+      playerId: state.playerId,
+      keyPressed,
     };
 
     //game.movePlayer(command);
@@ -32,5 +43,6 @@ export default function createKeyboardListener(document) {
 
   return {
     subscribe,
+    registerPlayerId,
   };
 }

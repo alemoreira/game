@@ -1,5 +1,10 @@
 // CAMADA DE APRESENTACAO
-export default function renderScreen(screen, game, requestAnimationFrame) {
+export default function renderScreen(
+  screen,
+  game,
+  requestAnimationFrame,
+  currentPlayerId
+) {
   const context = screen.getContext("2d");
 
   // Limpa a tela ou inicializa a tela
@@ -20,9 +25,16 @@ export default function renderScreen(screen, game, requestAnimationFrame) {
     context.fillRect(fruit.x, fruit.y, 1, 1);
   }
 
+  const currentPlayer = game.state.players[currentPlayerId];
+
+  if (currentPlayer) {
+    context.fillStyle = "#F0DB4F";
+    context.fillRect(currentPlayer.x, currentPlayer.y, 1, 1);
+  }
+
   // chama a funcao de desenhar a tela recursivamente
   // funcao anonima para ser o callback a ser chamado, agora contendo os 3 parâmetros
   requestAnimationFrame(() => {
-    renderScreen(screen, game, requestAnimationFrame);
+    renderScreen(screen, game, requestAnimationFrame, currentPlayerId);
   });
 }

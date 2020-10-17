@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt_BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Meu Primeiro Jogo Multiplayer</title>
+    <title>PACMAN - Meu Primeiro Jogo Multiplayer</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <style>
       #screen {
         border: 10px solid #ccc;
@@ -14,6 +16,7 @@
         height: 400px;
       }
     </style>
+    <script src="/socket.io/socket.io.js"></script>
   </head>
 
   <body>
@@ -30,16 +33,58 @@
         Registrar os observers - algo para ser feito pela aplicação em runtime.
         Cole a linha abaixo no console
       */
-      keyboardListener.subscribe(game.movePlayer);
+      //keyboardListener.subscribe(game.movePlayer);
 
-      game.addPlayer({ playerId: "player1", playerX: 0, playerY: 0 });
-      game.addPlayer({ playerId: "player2", playerX: 7, playerY: 0 });
-      game.addPlayer({ playerId: "player3", playerX: 9, playerY: 0 });
-      game.addFruit({ fruitId: "fruit1", fruitX: 3, fruitY: 3 });
-      game.addFruit({ fruitId: "fruit2", fruitX: 3, fruitY: 5 });
+      const socket = io();
 
-      const screen = document.getElementById("screen");
-      renderScreen(screen, game, requestAnimationFrame);
+      socket.on("connect", () => {
+        const playerId = socket.id;
+        console.log(`Player connected on Client with id: ${playerId}`);
+
+        const screen = document.getElementById("screen");
+        renderScreen(screen, game, requestAnimationFrame, playerId);
+      });
+
+      socket.on("setup", (state) => {
+        const playerId = socket.id;
+        game.setState(state);
+
+        keyboardListener.registerPlayerId(playerId);
+        keyboardListener.subscribe(game.movePlayer);
+        keyboardListener.subscribe((command) => {
+          socket.emit("move-player", command);
+        });
+      });
+
+      socket.on("add-player", (command) => {
+        console.log(`Receiving ${command.type} -> ${command.playerId}`);
+        game.addPlayer(command);
+      });
+
+      socket.on("remove-player", (command) => {
+        console.log(`Receiving ${command.type} -> ${command.playerId}`);
+        game.removePlayer(command);
+      });
+
+      socket.on("move-player", (command) => {
+        console.log(`Receiving ${command.type} -> ${command.playerId}`);
+
+        const playerId = socket.id;
+
+        if (playerId !== command.playerId) {
+          game.movePlayer(command);
+        }
+      });
+
+      socket.on("add-fruit", (command) => {
+        console.log(`Receiving ${command.type} -> ${command.fruitId}`);
+        game.addFruit(command);
+      });
+
+      socket.on("remove-fruit", (command) => {
+        console.log(`Receiving ${command.type} -> ${command.fruitId}`);
+        game.removeFruit(command);
+      });
     </script>
   </body>
 </html>
